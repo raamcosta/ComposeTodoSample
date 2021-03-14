@@ -10,7 +10,7 @@ abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
 
     private var pendingNavigatorAction: (() -> Unit)? = null
 
-    open var navigator: Navigator? = null
+    var navigator: Navigator? = null
         set(value) = synchronized(this::javaClass) {
             field = value
             if (value != null) checkForPendingNavigation()
@@ -29,7 +29,7 @@ abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
         }
     }
 
-    override fun goTo(destination: ScreenDefinition, args: List<String>): Unit = synchronized(this::javaClass) {
+    override fun goTo(destinationRoute: String): Unit = synchronized(this::javaClass) {
         if (pendingNavigatorAction != null) {
             throw IllegalStateException("$this ViewModel as already set a new destination!")
         }
@@ -38,21 +38,28 @@ abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
 
         if (navigator != null) {
             val result = kotlin.runCatching {
-                debug("Navigating to ${destination.TAG}, args = $args")
-                navigator.goTo(destination, args)
+                debug("Navigating to $destinationRoute")
+                navigator.goTo(destinationRoute)
+//                debug("Navigating to ${destination.TAG}, args = $args")
+//                navigator.goTo(destination, args)
             }
 
             if (result.isSuccess) {
                 return
             }
 
-            warn("Error while trying to navigate at this point: ${result.exceptionOrNull()?.message}")
+            val exceptionOrNull = result.exceptionOrNull()
+            if (exceptionOrNull is IllegalArgumentException) {
+                throw exceptionOrNull
+            }
+            warn("Error while trying to navigate at this point: ${exceptionOrNull?.message}")
         }
 
         info("We tried to navigate while no navigator was available, we'll save the navigation action..")
 
         pendingNavigatorAction = {
-            goTo(destination, args)
+            goTo(destinationRoute)
+//            goTo(destination, args)
         }
     }
 }

@@ -6,7 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
-import racosta.samples.composetodo.dependencyinjection.ScreenCompositionRoot
+import racosta.samples.composetodo.di.ScreenCompositionRoot
 import racosta.samples.composetodo.ui.screens.base.Screen
 import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
 

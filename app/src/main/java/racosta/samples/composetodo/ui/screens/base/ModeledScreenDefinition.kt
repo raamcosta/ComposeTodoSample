@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.ViewModel
-import racosta.samples.composetodo.dependencyinjection.ScreenCompositionRoot
-import racosta.samples.composetodo.ui.viewmodels.HomeViewModel
+import racosta.samples.composetodo.di.ScreenCompositionRoot
 import racosta.samples.composetodo.ui.viewmodels.base.NavigatorViewModel
 
 abstract class ModeledScreenDefinition<VM: ViewModel> : ScreenDefinition {

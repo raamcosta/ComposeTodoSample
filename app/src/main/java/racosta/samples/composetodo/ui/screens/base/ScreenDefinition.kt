@@ -3,7 +3,6 @@ package racosta.samples.composetodo.ui.screens.base
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavDeepLink
@@ -11,7 +10,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NamedNavArgument
 import androidx.navigation.compose.composable
 import racosta.samples.composetodo.TodoApp
-import racosta.samples.composetodo.dependencyinjection.ScreenCompositionRoot
+import racosta.samples.composetodo.di.ScreenCompositionRoot
 import racosta.samples.composetodo.ui.navigator.Navigator
 
 interface ScreenDefinition {
@@ -37,9 +36,8 @@ interface ScreenDefinition {
             navDeepLinks
         ) {
             val app = LocalContext.current.applicationContext as TodoApp
-            val compositionScope = rememberCoroutineScope()
 
-            val compositionRoot = ScreenCompositionRoot(app, navigator, compositionScope)
+            val compositionRoot = ScreenCompositionRoot(app.appCompositionRoot, navigator)
 
             prepareScreen(it.arguments, compositionRoot).Compose()
         }

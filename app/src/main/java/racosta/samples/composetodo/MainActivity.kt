@@ -3,7 +3,9 @@ package racosta.samples.composetodo
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,13 +41,16 @@ class MainActivity : AppCompatActivity() {
         Scaffold(
             topBar = { TopBar() },
             bottomBar = { BottomBar(navController) }
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = HomeScreen.route
-            ) {
-                appCompositionRoot.screens.forEach {
-                    it.addComposable(this, navigator)
+        ) { paddingValues ->
+            
+            Box(Modifier.padding(paddingValues)) {
+                NavHost(
+                    navController = navController,
+                    startDestination = HomeScreen.route
+                ) {
+                    appCompositionRoot.screens.forEach {
+                        it.addComposable(this, navigator)
+                    }
                 }
             }
         }
