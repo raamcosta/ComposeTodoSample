@@ -14,9 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
 import racosta.samples.composetodo.ui.navigator.NavigatorImpl
-import racosta.samples.composetodo.ui.screens.*
+import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
+import racosta.samples.composetodo.ui.screens.base.ScreenDefinition.Companion.fullRoute
+import racosta.samples.composetodo.ui.screens.home.HomeScreen
 import racosta.samples.composetodo.ui.theme.ComposeTODOTheme
 
 class MainActivity : AppCompatActivity() {
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             Box(Modifier.padding(paddingValues)) {
                 NavHost(
                     navController = navController,
-                    startDestination = HomeScreen.route
+                    startDestination = HomeScreen.fullRoute()
                 ) {
                     appCompositionRoot.screens.forEach {
                         it.addComposable(this, navigator)
@@ -74,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     private fun RowScope.BottomBarItem(
-        screen: ScreenDefinition,
+        screen: ScreenDefinition<*>,
         navController: NavHostController
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                     screen.iconContentDescription?.let { stringResource(it) } ?: ""
                 )
             },
-            label = { Text(screen.rawRoute) },
+            label = { Text(screen.route) },
             selected = currentRoute == screen.route,
             onClick = {
                 navController.navigate(screen.route) {

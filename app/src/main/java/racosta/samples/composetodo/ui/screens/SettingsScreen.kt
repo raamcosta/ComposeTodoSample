@@ -1,6 +1,5 @@
 package racosta.samples.composetodo.ui.screens
 
-import android.os.Bundle
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -17,10 +16,8 @@ class SettingsScreen : Screen {
         Text("Settings")
     }
 
-    companion object : ScreenDefinition {
+    companion object : ScreenDefinition<Nothing?> {
         override val route = "settings"
-
-        override val rawRoute = "settings"
 
         override val icon: ImageVector
             get() = Icons.Filled.Settings
@@ -29,7 +26,7 @@ class SettingsScreen : Screen {
             get() = null
 
         @Composable
-        override fun prepareScreen(arguments: Bundle?, compositionRoot: ScreenCompositionRoot): Screen {
+        override fun prepareScreen(arguments: Nothing?, compositionRoot: ScreenCompositionRoot): Screen {
             return SettingsScreen()
         }
     }

@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.collect
 import racosta.samples.composetodo.commons.launchInScope
 import racosta.samples.composetodo.todologic.entities.NewTask
 import racosta.samples.composetodo.todologic.entities.Task
-import racosta.samples.composetodo.todologic.entities.TasksGroupDetailed
 import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
 import racosta.samples.composetodo.todologic.usecases.GetTaskGroupDetailedForIdUseCase
 import racosta.samples.composetodo.todologic.usecases.UpdateTaskUseCase
-import racosta.samples.composetodo.ui.screens.TaskGroupScreen
+import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreenState
+import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreenUserEvents
 import racosta.samples.composetodo.ui.viewmodels.base.NavigatorViewModel
 
 class TaskGroupViewModel(
@@ -19,27 +19,26 @@ class TaskGroupViewModel(
     private val getTaskGroupDetailedForIdUseCase: GetTaskGroupDetailedForIdUseCase,
     private val addNewTasksUseCase: AddNewTasksUseCase,
     private val updateTaskUseCase: UpdateTaskUseCase,
-) : NavigatorViewModel(), TaskGroupScreen.State, TaskGroupScreen.UserEvents {
+) : NavigatorViewModel(), TaskGroupScreenUserEvents {
 
-    override val groupName = MutableStateFlow("")
-    override val taskGroup = MutableStateFlow<TasksGroupDetailed?>(null)
+    val uiState = MutableStateFlow(TaskGroupScreenState("", null, false, ""))
 
     init {
         launchInScope {
             if (tasksGroupId == null) {
-                groupName.value = "Tasks"
+                updateState { copy(groupName = "Tasks") }
             }
 
             getTaskGroupDetailedForIdUseCase.taskGroupDetailed(tasksGroupId).collect {
-                taskGroup.value = it
-                groupName.value = it.name ?: "Tasks"
+                updateState { copy(taskGroup = it, groupName = it.name ?: "Tasks") }
             }
         }
     }
 
-    override fun onAddSomethingClick() {
+    override fun onAddNewTaskClick() {
         launchInScope {
-            addNewTasksUseCase.addNewTask(NewTask("TITLE", groupId = tasksGroupId))
+            addNewTasksUseCase.addNewTask(NewTask(uiState.value.newTaskDialogTextFieldText, groupId = tasksGroupId))
+            updateState { copy(newTaskDialogVisible = false, newTaskDialogTextFieldText = "") }
         }
     }
 
@@ -47,6 +46,26 @@ class TaskGroupViewModel(
         launchInScope {
             updateTaskUseCase.updateTask(task.copy(isDone = !task.isDone))
         }
+    }
+
+    override fun onTaskClick(task: Task) {
+        //TODO("Not yet implemented")
+    }
+
+    override fun onNewTaskDialogOpened() {
+        updateState { copy(newTaskDialogVisible = true) }
+    }
+
+    override fun onNewTaskDialogDismissed() {
+        updateState { copy(newTaskDialogVisible = false) }
+    }
+
+    override fun onNewTaskDialogTextChanged(newText: String) {
+        updateState { copy(newTaskDialogTextFieldText = newText) }
+    }
+
+    private inline fun updateState(newStateMaker: TaskGroupScreenState.() -> TaskGroupScreenState) {
+        uiState.value = uiState.value.newStateMaker()
     }
 
     class Factory(
@@ -57,7 +76,12 @@ class TaskGroupViewModel(
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             @Suppress("UNCHECKED_CAST")
-            return TaskGroupViewModel(tasksGroupId, getTaskGroupDetailedForIdUseCase, addNewTasksUseCase, updateTaskUseCase) as T
+            return TaskGroupViewModel(
+                tasksGroupId,
+                getTaskGroupDetailedForIdUseCase,
+                addNewTasksUseCase,
+                updateTaskUseCase
+            ) as T
         }
     }
 }

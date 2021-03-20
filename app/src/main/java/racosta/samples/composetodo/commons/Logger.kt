@@ -17,8 +17,14 @@ interface Logger {
     fun error(message: Any?) = Log.e(tag, message?.toString() ?: "null")
 }
 
-val Any.TAG: String
+val Logger.TAG: String
     get() = this.javaClass.simpleName.let {
         if (it.length <= 23) it
         else it.substring(0, 23)
     }
+
+fun Logger?.verbose(message: Any?) = this?.run { verbose(message?.toString() ?: "null") }
+fun Logger?.info(message: Any?) = this?.run { info(message?.toString() ?: "null") }
+fun Logger?.warn(message: Any?) = this?.run { warn(message?.toString() ?: "null") }
+fun Logger?.debug(message: Any?) = this?.run { debug(message?.toString() ?: "null") }
+fun Logger?.error(message: Any?) = this?.run { error(message?.toString() ?: "null") }

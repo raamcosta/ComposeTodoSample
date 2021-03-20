@@ -2,44 +2,39 @@ package racosta.samples.composetodo.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.*
 import racosta.samples.composetodo.commons.launchInScope
 import racosta.samples.composetodo.todologic.entities.NewTaskGroup
-import racosta.samples.composetodo.todologic.entities.TasksGroupSummary
 import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
 import racosta.samples.composetodo.todologic.usecases.GetAllTaskGroupsUseCase
-import racosta.samples.composetodo.ui.screens.TaskGroupScreen
-import racosta.samples.composetodo.ui.screens.HomeScreen
+import racosta.samples.composetodo.ui.screens.home.HomeScreenState
+import racosta.samples.composetodo.ui.screens.home.HomeScreenUserEvents
+import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupArguments
+import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreen
 import racosta.samples.composetodo.ui.viewmodels.base.NavigatorViewModel
 
 class HomeViewModel(
     private val getAllTaskGroupsUseCase: GetAllTaskGroupsUseCase,
     private val addNewTasksUseCase: AddNewTasksUseCase
-) : NavigatorViewModel(), HomeScreen.UserEvents, HomeScreen.State {
+) : NavigatorViewModel(), HomeScreenUserEvents, HomeScreenState {
 
     //region screen state
 
-    override val taskGroups = MutableStateFlow<List<TasksGroupSummary>>(emptyList())
+    override val taskGroups = getAllTaskGroupsUseCase.allTaskGroups.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
-    override val newTaskGroupName = MutableStateFlow("")
+    override val newTaskGroupName: StateFlow<String> = MutableStateFlow("")
 
-    override val newTaskGroupButtonEnabled = MutableStateFlow(isAddNewGroupButtonEnabled())
+    override val newTasksGroupButtonEnabled = MutableStateFlow(isAddNewGroupButtonEnabled())
+
+    override val newTasksGroupDialogVisible = MutableStateFlow(false)
 
     //endregion
-
-    init {
-        launchInScope {
-            getAllTaskGroupsUseCase.allTaskGroups.collect {
-                taskGroups.value = it
-            }
-        }
-    }
 
     //region user events handling
 
     override fun onTaskGroupClick(taskGroupId: Long?) {
-        goTo(TaskGroupScreen.createRoute(taskGroupId))
+        goTo(TaskGroupScreen, TaskGroupArguments(taskGroupId))
     }
 
     override fun onAddNewTasksGroupClick() {
@@ -49,17 +44,21 @@ class HomeViewModel(
 
         launchInScope {
             addNewTasksUseCase.addNewTaskGroup(NewTaskGroup(newTaskGroupName.value))
-            newTaskGroupName.value = ""
+            setNewTaskGroupName("")
+            newTasksGroupDialogVisible.value = false
         }
     }
 
     override fun onNewTaskGroupNameChanged(newGroupName: String) {
-        newTaskGroupName.value = newGroupName
+        setNewTaskGroupName(newGroupName)
+    }
 
-        val shouldButtonBeEnabled = isAddNewGroupButtonEnabled()
-        if (newTaskGroupButtonEnabled.value != shouldButtonBeEnabled) {
-            newTaskGroupButtonEnabled.value = shouldButtonBeEnabled
-        }
+    override fun onNewTasksGroupDialogOpened() {
+        newTasksGroupDialogVisible.value = true
+    }
+
+    override fun onNewTasksGroupDialogDismissed() {
+        newTasksGroupDialogVisible.value = false
     }
 
     //endregion
@@ -67,6 +66,15 @@ class HomeViewModel(
     //region internal logic
 
     private fun isAddNewGroupButtonEnabled() = newTaskGroupName.value.isNotBlank()
+
+    private fun setNewTaskGroupName(newGroupName: String) = with(newTaskGroupName as MutableStateFlow) {
+        newTaskGroupName.value = newGroupName
+
+        val shouldButtonBeEnabled = isAddNewGroupButtonEnabled()
+        if (newTasksGroupButtonEnabled.value != shouldButtonBeEnabled) {
+            newTasksGroupButtonEnabled.value = shouldButtonBeEnabled
+        }
+    }
 
     //endregion
 

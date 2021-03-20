@@ -20,7 +20,7 @@ import racosta.samples.composetodo.todologic.entities.NewTaskGroup
 import racosta.samples.composetodo.todologic.entities.TasksGroupSummary
 import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
 import racosta.samples.composetodo.todologic.usecases.GetAllTaskGroupsUseCase
-import racosta.samples.composetodo.ui.screens.TaskGroupScreen
+import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreen
 import java.util.concurrent.Executors
 
 @ExperimentalCoroutinesApi

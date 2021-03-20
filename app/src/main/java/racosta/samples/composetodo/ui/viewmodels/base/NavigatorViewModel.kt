@@ -2,7 +2,6 @@ package racosta.samples.composetodo.ui.viewmodels.base
 
 import androidx.lifecycle.ViewModel
 import racosta.samples.composetodo.commons.Logger
-import racosta.samples.composetodo.commons.TAG
 import racosta.samples.composetodo.ui.navigator.Navigator
 import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
 
@@ -29,7 +28,7 @@ abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
         }
     }
 
-    override fun goTo(destinationRoute: String): Unit = synchronized(this::javaClass) {
+    override fun <T> goTo(destination: ScreenDefinition<T>, arguments: T): Unit = synchronized(this::javaClass) {
         if (pendingNavigatorAction != null) {
             throw IllegalStateException("$this ViewModel as already set a new destination!")
         }
@@ -38,10 +37,8 @@ abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
 
         if (navigator != null) {
             val result = kotlin.runCatching {
-                debug("Navigating to $destinationRoute")
-                navigator.goTo(destinationRoute)
-//                debug("Navigating to ${destination.TAG}, args = $args")
-//                navigator.goTo(destination, args)
+                debug("Navigating to $destination")
+                navigator.goTo(destination, arguments)
             }
 
             if (result.isSuccess) {
@@ -58,8 +55,7 @@ abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
         info("We tried to navigate while no navigator was available, we'll save the navigation action..")
 
         pendingNavigatorAction = {
-            goTo(destinationRoute)
-//            goTo(destination, args)
+            goTo(destination, arguments)
         }
     }
 }
