@@ -1,10 +1,9 @@
-package racosta.samples.composetodo.ui.viewmodels.base
+package racosta.samples.composetodo.commons
 
 import androidx.lifecycle.ViewModel
-import racosta.samples.composetodo.commons.Logger
 import racosta.samples.composetodo.ui.navigator.Navigator
-import racosta.samples.composetodo.ui.screens.base.ScreenWithArgumentsDefinition
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
+import racosta.samples.composetodo.ui.screens.base.ScreenWithArguments
+import racosta.samples.composetodo.ui.screens.base.Screen
 
 abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
 
@@ -29,14 +28,14 @@ abstract class NavigatorViewModel: ViewModel(), Logger, Navigator {
         }
     }
 
-    override fun <T> goTo(destination: ScreenWithArgumentsDefinition<T>, arguments: T): Unit = synchronized(this::javaClass) {
+    override fun <T> goTo(destination: ScreenWithArguments<T>, arguments: T): Unit = synchronized(this::javaClass) {
         safeGoTo {
             debug("Navigating to $destination")
             goTo(destination, arguments)
         }
     }
 
-    override fun goTo(destination: ScreenDefinition) {
+    override fun goTo(destination: Screen) {
         safeGoTo {
             debug("Navigating to $destination")
             goTo(destination)

@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import racosta.samples.composetodo.ui.navigator.Navigator
-import racosta.samples.composetodo.ui.viewmodels.base.NavigatorViewModel
 
 @Composable
 inline fun <reified T : ViewModel> navigatorViewModel(

@@ -1,6 +1,5 @@
 package racosta.samples.composetodo.ui.screens.base
 
-import androidx.annotation.CallSuper
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -13,14 +12,16 @@ import com.google.gson.Gson
 import racosta.samples.composetodo.TodoApp
 import racosta.samples.composetodo.di.ScreenCompositionRoot
 import racosta.samples.composetodo.ui.navigator.Navigator
-import java.lang.RuntimeException
 import java.lang.reflect.Type
 
-interface ScreenWithArgumentsDefinition<Arguments> : ScreenDefinition {
+abstract class ScreenWithArguments<Arguments> : Screen {
 
-    val argType: Type? get() = null
+    abstract val argType: Type
 
-    override fun addComposable(navGraphBuilder: NavGraphBuilder, navigator: Navigator) {
+    @Composable
+    abstract fun makeComposable(arguments: Arguments, compositionRoot: ScreenCompositionRoot): ScreenComposable
+
+    final override fun addComposable(navGraphBuilder: NavGraphBuilder, navigator: Navigator) {
         navGraphBuilder.composable(
             fullRoute(),
             navArguments,
@@ -33,16 +34,12 @@ interface ScreenWithArgumentsDefinition<Arguments> : ScreenDefinition {
                 ScreenCompositionRoot(app.appCompositionRoot, navigator)
             }
 
-            prepareScreen(arguments, compositionRoot).Compose()
+            makeComposable(arguments, compositionRoot).Compose()
         }
     }
 
     @Composable
-    fun prepareScreen(arguments: Arguments, compositionRoot: ScreenCompositionRoot): Screen
-
-    @CallSuper
-    @Composable
-    override fun prepareScreen(compositionRoot: ScreenCompositionRoot): Screen {
+    final override fun makeComposable(compositionRoot: ScreenCompositionRoot): ScreenComposable {
         throw RuntimeException("ArgScreenDefinition must use prepareScreen with arguments instead!")
     }
 
@@ -58,11 +55,11 @@ interface ScreenWithArgumentsDefinition<Arguments> : ScreenDefinition {
                 }
             )
 
-        fun ScreenWithArgumentsDefinition<*>.fullRoute(): String {
+        fun ScreenWithArguments<*>.fullRoute(): String {
             return "$name?$NAV_ARG={$NAV_ARG}"
         }
 
-        fun <T> ScreenWithArgumentsDefinition<T>.fullRoute(arguments: T): String {
+        fun <T> ScreenWithArguments<T>.fullRoute(arguments: T): String {
             return "$name?$NAV_ARG=${gson.toJson(arguments)}"
         }
 

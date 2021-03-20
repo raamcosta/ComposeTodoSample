@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import racosta.samples.composetodo.ui.navigator.NavigatorImpl
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
+import racosta.samples.composetodo.ui.screens.base.Screen
 import racosta.samples.composetodo.ui.screens.home.HomeScreen
 import racosta.samples.composetodo.ui.theme.ComposeTODOTheme
 
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     private fun RowScope.BottomBarItem(
-        screen: ScreenDefinition,
+        screen: Screen,
         navController: NavHostController
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()

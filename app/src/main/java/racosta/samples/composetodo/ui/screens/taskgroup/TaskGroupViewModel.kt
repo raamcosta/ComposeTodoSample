@@ -1,4 +1,4 @@
-package racosta.samples.composetodo.ui.viewmodels
+package racosta.samples.composetodo.ui.screens.taskgroup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,9 +11,7 @@ import racosta.samples.composetodo.todologic.entities.Task
 import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
 import racosta.samples.composetodo.todologic.usecases.GetTaskGroupDetailedForIdUseCase
 import racosta.samples.composetodo.todologic.usecases.UpdateTaskUseCase
-import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreenState
-import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreenUserEvents
-import racosta.samples.composetodo.ui.viewmodels.base.NavigatorViewModel
+import racosta.samples.composetodo.commons.NavigatorViewModel
 
 class TaskGroupViewModel(
     private val tasksGroupId: Long?,

@@ -2,17 +2,17 @@ package racosta.samples.composetodo.ui.navigator
 
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import racosta.samples.composetodo.ui.screens.base.ScreenWithArgumentsDefinition
-import racosta.samples.composetodo.ui.screens.base.ScreenWithArgumentsDefinition.Companion.fullRoute
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
+import racosta.samples.composetodo.ui.screens.base.ScreenWithArguments
+import racosta.samples.composetodo.ui.screens.base.ScreenWithArguments.Companion.fullRoute
+import racosta.samples.composetodo.ui.screens.base.Screen
 
 class NavigatorImpl(private val navController: NavController) : Navigator {
 
-    override fun <T> goTo(destination: ScreenWithArgumentsDefinition<T>, arguments: T) {
+    override fun <T> goTo(destination: ScreenWithArguments<T>, arguments: T) {
         navController.navigate(destination.fullRoute(arguments))
     }
 
-    override fun goTo(destination: ScreenDefinition) {
+    override fun goTo(destination: Screen) {
         navController.navigate(destination.name)
     }
 }

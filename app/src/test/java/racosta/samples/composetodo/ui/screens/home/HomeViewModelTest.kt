@@ -1,4 +1,4 @@
-package racosta.samples.composetodo.ui.viewmodels
+package racosta.samples.composetodo.ui.screens.home
 
 import io.mockk.*
 import kotlinx.coroutines.*
