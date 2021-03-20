@@ -2,9 +2,10 @@ package racosta.samples.composetodo.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import racosta.samples.composetodo.commons.launchInScope
+import kotlinx.coroutines.launch
 import racosta.samples.composetodo.todologic.entities.NewTask
 import racosta.samples.composetodo.todologic.entities.Task
 import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
@@ -24,7 +25,7 @@ class TaskGroupViewModel(
     val uiState = MutableStateFlow(TaskGroupScreenState("", null, false, ""))
 
     init {
-        launchInScope {
+        viewModelScope.launch {
             if (tasksGroupId == null) {
                 updateState { copy(groupName = "Tasks") }
             }
@@ -36,14 +37,14 @@ class TaskGroupViewModel(
     }
 
     override fun onAddNewTaskClick() {
-        launchInScope {
+        viewModelScope.launch {
             addNewTasksUseCase.addNewTask(NewTask(uiState.value.newTaskDialogTextFieldText, groupId = tasksGroupId))
             updateState { copy(newTaskDialogVisible = false, newTaskDialogTextFieldText = "") }
         }
     }
 
     override fun onTaskCheckClick(task: Task) {
-        launchInScope {
+        viewModelScope.launch {
             updateTaskUseCase.updateTask(task.copy(isDone = !task.isDone))
         }
     }

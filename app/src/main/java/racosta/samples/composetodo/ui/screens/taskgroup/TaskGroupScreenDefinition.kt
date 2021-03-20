@@ -4,14 +4,14 @@ import androidx.compose.runtime.Composable
 import com.google.gson.reflect.TypeToken
 import racosta.samples.composetodo.commons.navigatorViewModel
 import racosta.samples.composetodo.di.ScreenCompositionRoot
+import racosta.samples.composetodo.ui.screens.base.ScreenWithArgumentsDefinition
 import racosta.samples.composetodo.ui.screens.base.Screen
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
 import racosta.samples.composetodo.ui.viewmodels.TaskGroupViewModel
 import java.lang.reflect.Type
 
-object TaskGroupScreenDefinition : ScreenDefinition<TaskGroupArguments> {
+object TaskGroupScreenDefinition : ScreenWithArgumentsDefinition<TaskGroupArguments> {
 
-    override val route = "taskGroup"
+    override val name = "taskGroup"
 
     override val argType: Type?
         get() = object: TypeToken<TaskGroupArguments>() {}.type

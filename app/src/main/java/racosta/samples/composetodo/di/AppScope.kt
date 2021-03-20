@@ -8,7 +8,7 @@ interface AppScope {
 
     val app: Application
 
-    val screens: Array<ScreenDefinition<*>>
+    val screens: Array<ScreenDefinition>
 
     val db: TodoDatabase
 }

@@ -22,8 +22,8 @@ import racosta.samples.composetodo.commons.CircleDialogWithTextFieldAndButton
 import racosta.samples.composetodo.commons.ExplodingFab
 import racosta.samples.composetodo.commons.Logger
 import racosta.samples.composetodo.todologic.entities.Task
+import racosta.samples.composetodo.ui.screens.base.ScreenWithArgumentsDefinition
 import racosta.samples.composetodo.ui.screens.base.Screen
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
 
 class TaskGroupScreen(private val state: StateFlow<TaskGroupScreenState>, private val userEvents: TaskGroupScreenUserEvents) :
     Screen, Logger {
@@ -155,5 +155,5 @@ class TaskGroupScreen(private val state: StateFlow<TaskGroupScreenState>, privat
         }
     }
 
-    companion object : ScreenDefinition<TaskGroupArguments> by TaskGroupScreenDefinition
+    companion object : ScreenWithArgumentsDefinition<TaskGroupArguments> by TaskGroupScreenDefinition
 }

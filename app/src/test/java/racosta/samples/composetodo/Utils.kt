@@ -5,11 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.mockk.*
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.launch
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
-import racosta.samples.composetodo.commons.launchInScope
 import kotlin.coroutines.CoroutineContext
 
 fun clearRecordedCalls(
@@ -27,16 +24,9 @@ fun clearRecordedCalls(
     )
 }
 
-fun mockViewModelLaunch(testDispatcher: CoroutineContext) {
-    mockkStatic("racosta.samples.composetodo.commons.Utils")
-    @Suppress("UNCHECKED_CAST")
-    every { any<ViewModel>().launchInScope(any(), any(), any()) } answers {
-        (this.invocation.args[0] as ViewModel).viewModelScope.launch(
-            testDispatcher,
-            args[2] as CoroutineStart,
-            args[3] as suspend CoroutineScope.() -> Unit
-        )
-    }
+fun mockViewModelScope(testDispatcher: CoroutineContext) {
+    mockkStatic("androidx.lifecycle.ViewModelKt")
+    every { any<ViewModel>().viewModelScope } returns CoroutineScope(testDispatcher)
 }
 
 fun mockLogger() {

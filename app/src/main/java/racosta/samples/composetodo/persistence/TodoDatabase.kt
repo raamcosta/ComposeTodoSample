@@ -10,7 +10,7 @@ import racosta.samples.composetodo.persistence.entities.TaskGroupEntity
 const val DB_NAME = "todo-db"
 private const val DB_VERSION = 1
 
-@Database(entities = [TaskEntity::class, TaskGroupEntity::class], version = DB_VERSION)
+@Database(entities = [TaskEntity::class, TaskGroupEntity::class], version = DB_VERSION, exportSchema = false)
 abstract class TodoDatabase: RoomDatabase() {
 
     abstract fun taskDao(): TaskDao

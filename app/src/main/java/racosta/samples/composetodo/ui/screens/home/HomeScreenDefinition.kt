@@ -10,9 +10,9 @@ import racosta.samples.composetodo.ui.screens.base.Screen
 import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
 import racosta.samples.composetodo.ui.viewmodels.HomeViewModel
 
-object HomeScreenDefinition : ScreenDefinition<Nothing?> {
+object HomeScreenDefinition : ScreenDefinition {
 
-    override val route = "home"
+    override val name = "home"
 
     override val icon: ImageVector
         get() = Icons.Filled.Home
@@ -21,7 +21,7 @@ object HomeScreenDefinition : ScreenDefinition<Nothing?> {
         get() = null
 
     @Composable
-    override fun prepareScreen(arguments: Nothing?, compositionRoot: ScreenCompositionRoot): Screen {
+    override fun prepareScreen(compositionRoot: ScreenCompositionRoot): Screen {
         val viewModel: HomeViewModel = navigatorViewModel(
             navigator = compositionRoot.navigator,
             factory = HomeViewModel.Factory(

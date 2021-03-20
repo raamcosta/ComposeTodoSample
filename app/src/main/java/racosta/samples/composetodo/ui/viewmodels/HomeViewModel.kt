@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
-import racosta.samples.composetodo.commons.launchInScope
+import kotlinx.coroutines.launch
 import racosta.samples.composetodo.todologic.entities.NewTaskGroup
 import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
 import racosta.samples.composetodo.todologic.usecases.GetAllTaskGroupsUseCase
@@ -42,7 +42,7 @@ class HomeViewModel(
             throw IllegalStateException("onAddNewTasksGroupClick called but button should be disabled")
         }
 
-        launchInScope {
+        viewModelScope.launch {
             addNewTasksUseCase.addNewTaskGroup(NewTaskGroup(newTaskGroupName.value))
             setNewTaskGroupName("")
             newTasksGroupDialogVisible.value = false

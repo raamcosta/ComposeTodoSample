@@ -145,5 +145,5 @@ class HomeScreen(private val viewState: HomeScreenState, private val userEvents:
         }
     }
 
-    companion object : ScreenDefinition<Nothing?> by HomeScreenDefinition
+    companion object : ScreenDefinition by HomeScreenDefinition
 }

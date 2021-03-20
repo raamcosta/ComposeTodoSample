@@ -16,8 +16,8 @@ class SettingsScreen : Screen {
         Text("Settings")
     }
 
-    companion object : ScreenDefinition<Nothing?> {
-        override val route = "settings"
+    companion object : ScreenDefinition {
+        override val name = "settings"
 
         override val icon: ImageVector
             get() = Icons.Filled.Settings
@@ -26,7 +26,7 @@ class SettingsScreen : Screen {
             get() = null
 
         @Composable
-        override fun prepareScreen(arguments: Nothing?, compositionRoot: ScreenCompositionRoot): Screen {
+        override fun prepareScreen(compositionRoot: ScreenCompositionRoot): Screen {
             return SettingsScreen()
         }
     }

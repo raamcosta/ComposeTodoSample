@@ -7,11 +7,10 @@ import racosta.samples.composetodo.persistence.TodoDatabase
 import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreen
 import racosta.samples.composetodo.ui.screens.home.HomeScreen
 import racosta.samples.composetodo.ui.screens.SettingsScreen
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
 
 class AppCompositionRoot(override val app: Application) : AppScope {
 
-    override val screens = arrayOf<ScreenDefinition<*>>(
+    override val screens = arrayOf(
         HomeScreen,
         TaskGroupScreen,
         SettingsScreen,

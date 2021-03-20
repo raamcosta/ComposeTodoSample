@@ -16,7 +16,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
 import racosta.samples.composetodo.ui.navigator.NavigatorImpl
 import racosta.samples.composetodo.ui.screens.base.ScreenDefinition
-import racosta.samples.composetodo.ui.screens.base.ScreenDefinition.Companion.fullRoute
 import racosta.samples.composetodo.ui.screens.home.HomeScreen
 import racosta.samples.composetodo.ui.theme.ComposeTODOTheme
 
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             Box(Modifier.padding(paddingValues)) {
                 NavHost(
                     navController = navController,
-                    startDestination = HomeScreen.fullRoute()
+                    startDestination = HomeScreen.name
                 ) {
                     appCompositionRoot.screens.forEach {
                         it.addComposable(this, navigator)
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     private fun RowScope.BottomBarItem(
-        screen: ScreenDefinition<*>,
+        screen: ScreenDefinition,
         navController: NavHostController
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -88,10 +87,10 @@ class MainActivity : AppCompatActivity() {
                     screen.iconContentDescription?.let { stringResource(it) } ?: ""
                 )
             },
-            label = { Text(screen.route) },
-            selected = currentRoute == screen.route,
+            label = { Text(screen.name) },
+            selected = currentRoute == screen.name,
             onClick = {
-                navController.navigate(screen.route) {
+                navController.navigate(screen.name) {
                     // Pop up to the start destination of the graph to
                     // avoid building up a large stack of destinations
                     // on the back stack as users select items
