@@ -2,6 +2,8 @@ package racosta.samples.composetodo.ui.screens.taskgroup
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +23,7 @@ import kotlinx.coroutines.flow.StateFlow
 import racosta.samples.composetodo.commons.CircleDialogWithTextFieldAndButton
 import racosta.samples.composetodo.commons.ExplodingFab
 import racosta.samples.composetodo.commons.Logger
+import racosta.samples.composetodo.commons.TodoAppTopBar
 import racosta.samples.composetodo.todologic.entities.Task
 import racosta.samples.composetodo.ui.screens.base.ScreenComposable
 
@@ -31,9 +34,12 @@ class TaskGroupComposable(
 
     @ExperimentalAnimationApi
     @Composable
-    override fun Compose() {
+    override fun Compose() = Column {
+        val state by state.collectAsState()
+
+        TodoAppTopBar(title = state.groupName)
+
         BoxWithConstraints(contentAlignment = Alignment.BottomEnd) {
-            val state by state.collectAsState()
             var explodeState by remember { mutableStateOf(false) }
             var showFabContent by remember { mutableStateOf(true) }
 
@@ -113,18 +119,13 @@ class TaskGroupComposable(
         )
     }
 
+    @ExperimentalAnimationApi
     @Composable
     private fun TasksList(state: TaskGroupScreenState) {
         Column(Modifier.fillMaxSize()) {
-            Text(
-                modifier = Modifier.padding(6.dp),
-                text = state.groupName,
-                fontSize = 24.sp
-            )
-
             val tasks = state.taskGroup?.tasks
-            if (tasks != null) {
-                TasksList(tasks)
+            AnimatedVisibility(visible = tasks != null) {
+                TasksList(tasks!!)
             }
         }
     }

@@ -1,7 +1,11 @@
 package racosta.samples.composetodo.commons
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -15,8 +19,23 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.delay
+
+@ExperimentalAnimationApi
+@Composable
+fun TodoAppTopBar(title: String, modifier: Modifier = Modifier) {
+    AnimatedVisibility(visible = title != "", enter = fadeIn() + expandHorizontally()) {
+        TopAppBar(backgroundColor = Color.White, elevation = 0.dp) {
+            Text(
+                text = title,
+                fontSize = 24.sp,
+                modifier = modifier.padding(start = 4.dp)
+            )
+        }
+    }
+}
 
 @Composable
 fun CircleDialogWithTextFieldAndButton(

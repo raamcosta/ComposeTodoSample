@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         val navigator = NavigatorImpl(navController)
 
         Scaffold(
-            topBar = { TopBar() },
             bottomBar = { BottomBar(navController) }
         ) { paddingValues ->
             
@@ -53,13 +52,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
-    }
-
-    @Composable
-    private fun TopBar() {
-        TopAppBar {
-            Text("Top app bar", modifier = Modifier.align(Alignment.CenterVertically))
         }
     }
 
