@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         navController: NavHostController
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE)
+        val currentRoute = navBackStackEntry?.destination?.route
 
         BottomNavigationItem(
             icon = {
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                     // Pop up to the start destination of the graph to
                     // avoid building up a large stack of destinations
                     // on the back stack as users select items
-                    popUpTo = navController.graph.startDestination
+                    popUpTo(navController.graph.startDestinationId)
                     // Avoid multiple copies of the same destination when
                     // reselecting the same item
                     launchSingleTop = true

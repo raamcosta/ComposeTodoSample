@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import racosta.samples.composetodo.ui.navigator.Navigator
 
@@ -15,7 +16,7 @@ inline fun <reified T : ViewModel> navigatorViewModel(
     key: String? = null,
     factory: ViewModelProvider.Factory? = null
 ): T {
-    return viewModel(T::class.java, key, factory).apply {
+    return viewModel<T>(key = key, factory = factory).apply {
         this as NavigatorViewModel
 
         DisposableEffect(Unit) {

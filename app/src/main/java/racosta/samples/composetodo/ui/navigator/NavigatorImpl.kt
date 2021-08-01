@@ -1,7 +1,6 @@
 package racosta.samples.composetodo.ui.navigator
 
 import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
 import racosta.samples.composetodo.ui.screens.base.ScreenWithArguments
 import racosta.samples.composetodo.ui.screens.base.ScreenWithArguments.Companion.fullRoute
 import racosta.samples.composetodo.ui.screens.base.Screen
