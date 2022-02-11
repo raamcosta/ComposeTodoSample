@@ -3,14 +3,13 @@ package racosta.samples.composetodo.todologic.usecases
 import io.mockk.Called
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import racosta.samples.composetodo.*
 
-import racosta.samples.composetodo.persistence.daos.TaskDao
-import racosta.samples.composetodo.persistence.daos.TaskGroupDao
+import racosta.samples.composetodo.persistence.daos.RoomTaskDao
+import racosta.samples.composetodo.persistence.daos.RoomTaskGroupDao
 
 class AddNewTasksUseCaseTest {
 
@@ -20,8 +19,8 @@ class AddNewTasksUseCaseTest {
 
     private lateinit var out: AddNewTasksUseCase
 
-    private val mockedTaskDao: TaskDao = mockk(relaxed = true)
-    private val mockedTaskGroupDao: TaskGroupDao = mockk(relaxed = true)
+    private val mockedTaskDao: RoomTaskDao = mockk(relaxed = true)
+    private val mockedTaskGroupDao: RoomTaskGroupDao = mockk(relaxed = true)
 
     @Before
     fun setUp() {

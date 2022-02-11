@@ -14,10 +14,10 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import racosta.samples.composetodo.*
-import racosta.samples.composetodo.todologic.entities.NewTaskGroup
-import racosta.samples.composetodo.todologic.entities.TasksGroupSummary
-import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
-import racosta.samples.composetodo.todologic.usecases.GetAllTaskGroupsUseCase
+import racosta.samples.todolib.entities.NewTaskGroup
+import racosta.samples.todolib.entities.TasksGroupSummary
+import racosta.samples.todolib.usecases.AddNewTasksUseCase
+import racosta.samples.todolib.usecases.GetAllTaskGroupsUseCase
 import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupArguments
 import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreen
 import java.util.concurrent.Executors

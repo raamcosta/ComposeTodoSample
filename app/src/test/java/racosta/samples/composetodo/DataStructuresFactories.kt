@@ -1,11 +1,11 @@
 package racosta.samples.composetodo
 
-import racosta.samples.composetodo.persistence.entities.TaskEntity
-import racosta.samples.composetodo.persistence.entities.TaskGroupEntity
-import racosta.samples.composetodo.todologic.entities.NewTask
-import racosta.samples.composetodo.todologic.entities.NewTaskGroup
-import racosta.samples.composetodo.todologic.entities.Task
-import racosta.samples.composetodo.todologic.entities.TasksGroupSummary
+import racosta.samples.composetodo.persistence.entities.RoomTaskEntity
+import racosta.samples.composetodo.persistence.entities.RoomTaskGroupEntity
+import racosta.samples.todolib.entities.NewTask
+import racosta.samples.todolib.entities.NewTaskGroup
+import racosta.samples.todolib.entities.Task
+import racosta.samples.todolib.entities.TasksGroupSummary
 
 
 fun tasksGroup(
@@ -62,7 +62,7 @@ fun taskEntity(
     dueDate: Long? = null,
     isDone: Boolean = false,
     groupId: Long? = null
-) = TaskEntity(
+) = RoomTaskEntity(
     id,
     title,
     description,
@@ -75,7 +75,7 @@ fun taskEntity(
 fun taskGroupEntity(
     id: Long = 0,
     name: String = ""
-) = TaskGroupEntity(
+) = RoomTaskGroupEntity(
     id,
     name
 )

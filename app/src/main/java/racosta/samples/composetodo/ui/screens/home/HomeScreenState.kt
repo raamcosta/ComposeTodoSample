@@ -1,7 +1,7 @@
 package racosta.samples.composetodo.ui.screens.home
 
 import kotlinx.coroutines.flow.StateFlow
-import racosta.samples.composetodo.todologic.entities.TasksGroupSummary
+import racosta.samples.todolib.entities.TasksGroupSummary
 
 interface HomeScreenState {
     val taskGroups: StateFlow<List<TasksGroupSummary>>

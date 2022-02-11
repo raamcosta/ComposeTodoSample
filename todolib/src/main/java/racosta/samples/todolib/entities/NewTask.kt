@@ -1,4 +1,4 @@
-package racosta.samples.composetodo.todologic.entities
+package racosta.samples.todolib.entities
 
 data class NewTask(
     val title: String,

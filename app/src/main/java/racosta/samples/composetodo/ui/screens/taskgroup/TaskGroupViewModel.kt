@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import racosta.samples.composetodo.todologic.entities.NewTask
-import racosta.samples.composetodo.todologic.entities.Task
-import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
-import racosta.samples.composetodo.todologic.usecases.GetTaskGroupDetailedForIdUseCase
-import racosta.samples.composetodo.todologic.usecases.UpdateTaskUseCase
+import racosta.samples.todolib.entities.NewTask
+import racosta.samples.todolib.entities.Task
+import racosta.samples.todolib.usecases.AddNewTasksUseCase
+import racosta.samples.todolib.usecases.GetTaskGroupDetailedForIdUseCase
+import racosta.samples.todolib.usecases.UpdateTaskUseCase
 import racosta.samples.composetodo.commons.NavigatorViewModel
 
 class TaskGroupViewModel(

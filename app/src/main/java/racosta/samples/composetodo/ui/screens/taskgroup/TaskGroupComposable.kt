@@ -24,7 +24,7 @@ import racosta.samples.composetodo.commons.CircleDialogWithTextFieldAndButton
 import racosta.samples.composetodo.commons.ExplodingFab
 import racosta.samples.composetodo.commons.Logger
 import racosta.samples.composetodo.commons.TodoAppTopBar
-import racosta.samples.composetodo.todologic.entities.Task
+import racosta.samples.todolib.entities.Task
 import racosta.samples.composetodo.ui.screens.base.ScreenComposable
 
 class TaskGroupComposable(

@@ -1,6 +1,6 @@
 package racosta.samples.composetodo.ui.screens.taskgroup
 
-import racosta.samples.composetodo.todologic.entities.Task
+import racosta.samples.todolib.entities.Task
 
 interface TaskGroupScreenUserEvents {
     fun onAddNewTaskClick()

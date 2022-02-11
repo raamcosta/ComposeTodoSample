@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import racosta.samples.composetodo.todologic.entities.NewTaskGroup
-import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
-import racosta.samples.composetodo.todologic.usecases.GetAllTaskGroupsUseCase
+import racosta.samples.todolib.entities.NewTaskGroup
+import racosta.samples.todolib.usecases.AddNewTasksUseCase
+import racosta.samples.todolib.usecases.GetAllTaskGroupsUseCase
 import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupArguments
 import racosta.samples.composetodo.ui.screens.taskgroup.TaskGroupScreen
 import racosta.samples.composetodo.commons.NavigatorViewModel

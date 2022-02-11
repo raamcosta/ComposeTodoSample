@@ -3,27 +3,25 @@ package racosta.samples.composetodo.todologic.usecases
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import racosta.samples.composetodo.*
-import racosta.samples.composetodo.persistence.daos.TaskDao
-import racosta.samples.composetodo.persistence.daos.TaskGroupDao
-import racosta.samples.composetodo.persistence.entities.TaskEntity
-import racosta.samples.composetodo.persistence.entities.TaskGroupEntity
-import racosta.samples.composetodo.todologic.entities.TasksGroupSummary
+import racosta.samples.composetodo.persistence.daos.RoomTaskDao
+import racosta.samples.composetodo.persistence.daos.RoomTaskGroupDao
+import racosta.samples.composetodo.persistence.entities.RoomTaskEntity
+import racosta.samples.composetodo.persistence.entities.RoomTaskGroupEntity
+import racosta.samples.todolib.entities.TasksGroupSummary
 
 class GetAllTasksGroupsUseCaseTest {
 
     private lateinit var out: GetAllTaskGroupsUseCase
 
-    private val mockedTaskDao: TaskDao = mockk()
-    private val mockedTaskGroupDao: TaskGroupDao = mockk()
+    private val mockedTaskDao: RoomTaskDao = mockk()
+    private val mockedTaskGroupDao: RoomTaskGroupDao = mockk()
 
     @Before
     fun setUp() {
@@ -36,7 +34,7 @@ class GetAllTasksGroupsUseCaseTest {
     @Test
     fun `when db groups change the correct value is emitted`() = runBlocking {
         every { mockedTaskGroupDao.getAll() } returns flow {
-            emit(emptyList<TaskGroupEntity>())
+            emit(emptyList<RoomTaskGroupEntity>())
             emit(listOf(taskGroupEntity(1, name = "new task group")))
         }
         every { mockedTaskDao.getAll() } returns flow {
@@ -60,7 +58,7 @@ class GetAllTasksGroupsUseCaseTest {
     @Test
     fun `when db tasks change the correct value is emitted`() = runBlocking {
         every { mockedTaskGroupDao.getAll() } returns flow {
-            emit(emptyList<TaskGroupEntity>())
+            emit(emptyList<RoomTaskGroupEntity>())
             emit(listOf(taskGroupEntity(1, name = "new task group")))
         }
         every { mockedTaskDao.getAll() } returns flow {
@@ -93,10 +91,10 @@ class GetAllTasksGroupsUseCaseTest {
     @Test
     fun `given empty db get all returns 1 default empty group`() = runBlocking {
         coEvery { mockedTaskDao.getAll() } returns flow {
-            emit(emptyList<TaskEntity>())
+            emit(emptyList<RoomTaskEntity>())
         }
         coEvery { mockedTaskGroupDao.getAll() } returns flow {
-            emit(emptyList<TaskGroupEntity>())
+            emit(emptyList<RoomTaskGroupEntity>())
         }
 
         val result = out.allTaskGroups.first()

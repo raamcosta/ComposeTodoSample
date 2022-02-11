@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import racosta.samples.composetodo.commons.CircleDialogWithTextFieldAndButton
 import racosta.samples.composetodo.commons.ExplodingFab
 import racosta.samples.composetodo.commons.TodoAppTopBar
-import racosta.samples.composetodo.todologic.entities.TasksGroupSummary
+import racosta.samples.todolib.entities.TasksGroupSummary
 import racosta.samples.composetodo.ui.screens.base.ScreenComposable
 
 @Composable

@@ -1,9 +1,9 @@
 package racosta.samples.composetodo.di
 
-import racosta.samples.composetodo.todologic.usecases.AddNewTasksUseCase
-import racosta.samples.composetodo.todologic.usecases.GetAllTaskGroupsUseCase
-import racosta.samples.composetodo.todologic.usecases.GetTaskGroupDetailedForIdUseCase
-import racosta.samples.composetodo.todologic.usecases.UpdateTaskUseCase
+import racosta.samples.todolib.usecases.AddNewTasksUseCase
+import racosta.samples.todolib.usecases.GetAllTaskGroupsUseCase
+import racosta.samples.todolib.usecases.GetTaskGroupDetailedForIdUseCase
+import racosta.samples.todolib.usecases.UpdateTaskUseCase
 import racosta.samples.composetodo.ui.navigator.Navigator
 
 class ScreenCompositionRoot(

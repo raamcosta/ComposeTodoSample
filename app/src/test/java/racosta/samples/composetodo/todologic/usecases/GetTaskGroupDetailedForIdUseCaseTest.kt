@@ -11,19 +11,19 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import racosta.samples.composetodo.isEqualTo
-import racosta.samples.composetodo.persistence.daos.TaskDao
-import racosta.samples.composetodo.persistence.daos.TaskGroupDao
+import racosta.samples.composetodo.persistence.daos.RoomTaskDao
+import racosta.samples.composetodo.persistence.daos.RoomTaskGroupDao
 import racosta.samples.composetodo.task
 import racosta.samples.composetodo.taskEntity
 import racosta.samples.composetodo.taskGroupEntity
-import racosta.samples.composetodo.todologic.entities.TasksGroupDetailed
+import racosta.samples.todolib.entities.TasksGroupDetailed
 
 class GetTaskGroupDetailedForIdUseCaseTest {
 
     private lateinit var out: GetTaskGroupDetailedForIdUseCase
 
-    private val mockedTasksDao: TaskDao = mockk()
-    private val mockedTaskGroupDao: TaskGroupDao = mockk()
+    private val mockedTasksDao: RoomTaskDao = mockk()
+    private val mockedTaskGroupDao: RoomTaskGroupDao = mockk()
 
     @Before
     fun setUp() {

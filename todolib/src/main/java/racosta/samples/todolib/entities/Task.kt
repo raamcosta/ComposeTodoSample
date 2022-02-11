@@ -1,4 +1,4 @@
-package racosta.samples.composetodo.todologic.entities
+package racosta.samples.todolib.entities
 
 data class Task(
     val id: Long,

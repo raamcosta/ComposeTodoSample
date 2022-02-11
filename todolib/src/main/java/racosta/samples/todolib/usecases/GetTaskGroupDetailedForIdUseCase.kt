@@ -1,13 +1,13 @@
-package racosta.samples.composetodo.todologic.usecases
+package racosta.samples.todolib.usecases
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import racosta.samples.composetodo.persistence.daos.TaskDao
-import racosta.samples.composetodo.persistence.daos.TaskGroupDao
-import racosta.samples.composetodo.persistence.entities.TaskEntity
-import racosta.samples.composetodo.todologic.entities.TasksGroupDetailed
-import racosta.samples.composetodo.todologic.toTask
+import racosta.samples.todolib.entities.TasksGroupDetailed
+import racosta.samples.todolib.persistence.daos.TaskDao
+import racosta.samples.todolib.persistence.daos.TaskGroupDao
+import racosta.samples.todolib.persistence.entities.TaskEntity
+import racosta.samples.todolib.toTask
 
 class GetTaskGroupDetailedForIdUseCase(
     private val taskDao: TaskDao,
