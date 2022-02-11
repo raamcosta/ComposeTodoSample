@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdoc_sample=self.webpackChunkdoc_sample||[]).push([[39],{7567:function(o){o.exports=JSON.parse('{"allTagsPath":"/ComposeTodoSample/blog/tags","slug":"/ComposeTodoSample/blog/tags/hola","name":"hola","count":1,"permalink":"/ComposeTodoSample/blog/tags/hola"}')}}]);
